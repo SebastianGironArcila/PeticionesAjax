@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+            <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            
+            <title>
+                
+            </title>
+            
+               <script>
+        
+            /* global $ */
+            function post()
+            {
+                
+                var url = "https://jsonplaceholder.typicode.com";
+                $.ajax({                        
+                    type: "POST",                 
+                    url: url + '/posts',                     
+                    data: $("#formulario").serialize(), 
+                    success: function(data)             
+                    {
+                        $('<h1/>').text('Transferencia exitosa.').appendTo('body');   
+                        console.log("transferencia exitosa.");
+                        $('#resp').html(data);               
+                    },
+                    error : function(xhr, status) {
+                      alert('Disculpe, existió un problema');
+                    },
+                    complete : function(xhr, status) {
+                       alert('Petición realizada');
+                    }
+                    
+                });
+            }
+        
+            
+    </script>
+    
+    
+    
+    <script>
+         function update()
+            {
+                
+                var url = "https://jsonplaceholder.typicode.com";
+                $.ajax({                        
+                    type: "PUT",                 
+                    url: url + '/posts',                     
+                    data: $("#formulario").serialize(), 
+                    success: function(data)             
+                    {
+                        $('<h1/>').text('Transferencia exitosa.').appendTo('body');   
+                        console.log("transferencia exitosa.");
+                        $('#resp').html(data);               
+                    },
+                    error : function(xhr, status) {
+                      alert('Disculpe, existió un problema');
+                    },
+                    complete : function(xhr, status) {
+                       alert('Petición realizada');
+                    }
+                    
+                });
+            }
+        
+        
+    </script>
+    
+    
+      <script>
+            function destroy()
+            {
+                /* global $ */
+                $.ajax('http://jsonplaceholder.typicode.com/posts/1', {
+                    method: 'DELETE',
+                    error : function(xhr, status) {
+                      alert('Disculpe, existió un problema');
+                    },
+                    complete : function(xhr, status) {
+                       alert('Petición realizada');
+                    }
+                    
+                });
+            }
+        </script>
+    </head>
+    
+    <body>
+        
+        
+        <script>
+            /* global $ */
+            
+            var root = 'https://jsonplaceholder.typicode.com';
+            
+            $.ajax({
+            url: root + '/posts/1',
+            method: 'GET',
+            dataType : 'json',
+            success : function(json){
+                console.log("consumido");
+                $('<h1/>').text(json.userId).appendTo('body');
+                $('<h2/>').text(json.id).appendTo('body');
+                $('<h3/>').text(json.title).appendTo('body');
+                $('<h4/>').text(json.body).appendTo('body');
+                
+
+                
+            }, 
+            });
+            
+            
+        </script>
+         
+        
+        <form method="post" id="formulario">
+        <input type="text" name="userId" placeholder="userId" autofocus />
+        <input type="text" name="id" placeholder="id"/>
+        <input type="text" name="title" placeholder="title" autofocus />
+        <input type="text" name="body" placeholder="body"/>
+        <button onclick="post()">POSTEAR</button>
+        <button onclick="update()">Actualizar</button>
+        <button onclick="destroy()">Eliminar</button>
+        </form>
+        
+        
+        
+    </body>
+</html>
